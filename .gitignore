@@ -1,0 +1,8 @@
+.DS_Store
+*~
+venv
+.vscode
+__pycache__
+data/indoor
+data/outdoor
+data.tar.gz

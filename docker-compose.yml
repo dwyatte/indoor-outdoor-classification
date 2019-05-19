@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  image:
+    image: indoor-outdoor-classification
+    build:
+      context: docker      
+
+  test:
+    image: indoor-outdoor-classification
+    command: py.test tests
+    volumes:
+      - .:/workdir
+    environment:
+      - TF_SERVING_URL=tensorflow-serving:8500
+    links:
+      - tensorflow-serving
+
+  tensorflow-serving:
+    image: tensorflow/serving:1.13.0
+    volumes:
+      - ./outdoornet:/models/outdoornet
+    environment:
+      - MODEL_NAME=outdoornet
+    ports:
+      - 8500:8500
