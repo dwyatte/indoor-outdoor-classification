@@ -22,5 +22,8 @@ services:
       - ./outdoornet:/models/outdoornet
     environment:
       - MODEL_NAME=outdoornet
+    entrypoint:
+      - /usr/bin/tf_serving_entrypoint.sh
+      - --enable_batching=true
     ports:
       - 8500:8500
