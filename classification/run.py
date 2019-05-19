@@ -1,4 +1,3 @@
-import os
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from impl import classify_image
