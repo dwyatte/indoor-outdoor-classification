@@ -18,7 +18,7 @@ The dataset is split into 20 videos for training (10 indoor, 10 outdoor) and 8 v
 
 <img src="images/loss.png" height="166"> <img src="images/accuracy.png" height="166">
 
-Training was performed on Google Colab using TensorFlow ([notebook](notebooks/training.ipynb)). The final model exported in TensorFlow SavedModel format is located in the [outdoornet](outeodornet) directory.
+Training was performed on Google Colab using TensorFlow ([notebook](notebooks/training.ipynb)). The final model exported in TensorFlow SavedModel format is located in the [outdoornet](outdoornet) directory.
 
 ##### Limitations
 The primary limitation in performance is likely due to the lack of variability in the dataset. Different train/test splits produced large fluctuations in accuracy suggesting that they come from different data distributions.
