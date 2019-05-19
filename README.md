@@ -24,14 +24,18 @@ Training was performed on Google Colab using TensorFlow ([notebook](notebooks/tr
 The primary limitation in performance is likely due to the lack of variability in the dataset. Different train/test splits produced large fluctuations in accuracy suggesting that they come from different data distributions.
 
 ### Classification
-A sample pipeline for classification is implemented in the [classification](classification) directory. This pipeline uses TensorFlow Serving and should be run through Docker.
+Sample pipelines for classification are implemented in the [classification](classification) directory. 
 
-##### Instructions
+##### Local classification
+1. Run `pip install -r docker/requirements.txt` to install local dependencies.
+2. Run `python classification/local.py --model=outdoornet/<version> [image1] [image2] ...` to classify files locally.
+
+##### Remote classification
 1. Make sure docker is installed and running.
-2. Run `pip install -r docker/requirements.txt` to install client-side dependencies.
-3. Run `./classify.sh [image1] [image2] ...`, which starts TensorFlow Serving in a docker container and makes classification requests.
+2. Run `pip install -r docker/requirements.txt` to install local dependencies.
+3. Run `./classify_remote.sh [image1] [image2] ...`, which starts TensorFlow Serving in a docker container and makes classification requests over the wire.
 
-Two test images from each video in the test set are located in [images/test](images/test). For example, running `find images/test/**/*.png | xargs ./classify.sh` should print:
+Two test images from each video in the test set are located in [images/test](images/test). For example, running `find images/test/**/*.png | xargs ./classify_remote.sh` should print:
 
 ```
 images/test/indoor/6ce124f8e1eeb811a0a4fe3e8451efbd-001.png: Indoor (outdoor: 0.0000, indoor: 1.0000)
@@ -54,4 +58,3 @@ images/test/outdoor/42b05d211690ad49dc353e2af263acb5-100.png: Outdoor (outdoor: 
 
 ##### Tests
 Unit tests are located in the [tests](tests) directory and are run using pytest. To test through docker, run `docker-compose build image` followed by `docker-compose run test`.
-

@@ -5,7 +5,7 @@ import tensorflow as tf
 from PIL import Image
 from tensorflow_serving.apis import predict_pb2, prediction_service_pb2_grpc
 
-channel = grpc.insecure_channel(os.environ['TF_SERVING_URL'])
+channel = grpc.insecure_channel(os.environ.get('TF_SERVING_URL', ''))
 conn = prediction_service_pb2_grpc.PredictionServiceStub(channel)
 classnames = ['Indoor', 'Outdoor']
 
@@ -24,7 +24,7 @@ def make_request(filename):
     )
     return request
 
-def classify_image(filename):    
+def classify_image_remote(filename):    
     request = make_request(filename)
     response = conn.Predict(request)
     score = np.array(response.outputs['scores'].float_val)
@@ -32,3 +32,12 @@ def classify_image(filename):
                                                             classnames[int(np.round(score))], 
                                                             float(score), float(1-score)))
     return response
+
+def classify_image_local(filename, predictor):
+    image = read_image(filename)    
+    outputs = predictor({'inputs': image})
+    score = outputs['scores']
+    print('{}: {} (outdoor: {:.4f}, indoor: {:.4f})'.format(filename,
+                                                        classnames[int(np.round(score))], 
+                                                        float(score), float(1-score)))
+    return outputs
