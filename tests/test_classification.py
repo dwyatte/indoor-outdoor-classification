@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow_serving.apis import predict_pb2
-from classify import read_image, make_request, classify_image
+from classification import read_image, make_request, classify_image
 
 def test_read_image(filename):
     image = read_image(filename)
