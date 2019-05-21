@@ -18,12 +18,12 @@ extract_frames_from_video () {
 
 mkdir -p indoor/frames outdoor/frames
 
-indoor
+# indoor
 find indoor/video -type f -print0 | while IFS= read -r -d '' video
 do
    extract_frames_from_video "$video" indoor/frames
 done
-outdoor
+# outdoor
 find outdoor/video -type f -print0 | while IFS= read -r -d '' video
 do
     extract_frames_from_video "$video" outdoor/frames
